@@ -14,7 +14,7 @@
 # Circuit Diagram:
 
 ---
-To upload
+<img width="1137" height="688" alt="image" src="https://github.com/user-attachments/assets/ac6c52af-df7e-40ca-afc5-9347b88449ef" />
 --
 
 # Procedure // Modify the procedure based on your circuit
@@ -57,12 +57,48 @@ Step 7: Save Your Work
 
 # Program
 
----
-To upload
---
+```
+
+const int analogIn = A0;
+int humiditysensorOutput = 0;
+// Defining Variables
+int RawValue= 0;
+double Voltage = 0;
+double tempC = 0;
+double tempF = 0;
+void setup(){  
+  Serial.begin(9600);
+  pinMode(A1, INPUT);
+}
+void loop(){
+  RawValue = analogRead(analogIn);
+  Voltage = (RawValue / 1023.0) * 5000; // 5000 to get millivots.
+  tempC = (Voltage-500) * 0.1; // 500 is the offset
+  tempF = (tempC * 1.8) + 32; // convert to F  
+  Serial.print("Raw Value = " );                  
+  Serial.print(RawValue);      
+  Serial.print("\nmilli volts = ");
+  Serial.print(Voltage,0); //
+  Serial.print("\nTemperature in C = ");
+  Serial.print(tempC,1);
+  Serial.print("\nTemperature in F = ");
+  Serial.println(tempF,1);
+  humiditysensorOutput = analogRead(A1);
+  Serial.print("Humidity: "); // Printing out Humidity Percentage
+  Serial.print(map(humiditysensorOutput, 0, 1023, 10, 70));
+  Serial.println("%");
+  delay(5000);  //iterate every 5 seconds
+}
+```
 
 # Result
 
----
-To upload
+Raw Value = 153 milli volts = 748 Temperature in C = 24.8 Temperature in F = 76.6 Humidity: 37%
+
+Raw Value = 153 milli volts = 748 Temperature in C = 24.8 Temperature in F = 76.6 Humidity: 36%
+
+Raw Value = 153 milli volts = 748 Temperature in C = 24.8 Temperature in F = 76.6 Humidity: 36%
+
+Raw Value = 153 milli volts = 748 Temperature in C = 24.8 Temperature in F = 76.6 Humidity: 36%
+
 --
